@@ -56,6 +56,20 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Customers");
         }
 
+        public ActionResult Update(int id)
+        {
+            var memberShipTypes = _context.MemberShipTypes.ToList();
+            //Get the customer from DataBase
+            var customerInDb = _context.Customers.Single(c => c.Id == id);
+            var newCustomerViewModel = new NewCustomerViewModel
+            {
+                Customer=customerInDb,
+                MemberShipTypes = memberShipTypes
+            };
+
+            return View(customerInDb);
+        }
+
 
     }
 }
