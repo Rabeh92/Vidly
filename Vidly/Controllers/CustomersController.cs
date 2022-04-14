@@ -69,6 +69,20 @@ namespace Vidly.Controllers
 
             return View(newCustomerViewModel);
         }
+        public ActionResult Save(Customer customer)
+        {
+            //Get the customer from DataBase
+            var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+
+            customerInDb.Name = customer.Name;
+            customerInDb.Brithdate = customer.Brithdate;
+            customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            customerInDb.MemberShipTypeId = customer.MemberShipTypeId;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","Customers");
+        }
 
 
     }
